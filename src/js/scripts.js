@@ -126,7 +126,7 @@ function displayForecast(data) {
 
 // Fonction pour récupérer les heures de lever et de coucher du soleil
 function fetchSunriseSunset(city) {
-    fetch(`http://api.weatherapi.com/v1/astronomy.json?key=${API_KEY}&q=${city}`)
+    fetch(`https://api.weatherapi.com/v1/astronomy.json?key=${API_KEY}&q=${city}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Erreur lors de la récupération des données");
