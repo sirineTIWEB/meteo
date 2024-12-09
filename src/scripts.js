@@ -3,13 +3,17 @@ const API_KEY = '8338cecf4255464fb72101804242711';
 
 const cityNameElement = document.getElementById('city-name');
 const dateTimeElement = document.getElementById('date-time');
+const weatherConditionElement = document.getElementById('weather-condition');
 const weatherIconElement = document.getElementById('weather-icon-img');
+const weatherFeels = document.getElementById('weather-feels');
+const weatherMin = document.getElementById('weather-min');
+const weatherMax = document.getElementById('weather-max');
 const searchForm = document.querySelector('form');
 const searchInput = document.getElementById('search-input');
 
 // Cette fonction utilise l'API Fetch pour demander des données météorologiques pour une ville spécifique. Elle gère la réponse et met à jour l'affichage ou affiche un message d'erreur.
 function fetchWeatherForCity(city) {
-    fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`)
+    fetch(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}`)
         .then(response => response.json())
         .then(data => {
             if (data.location && data.current) {
@@ -18,16 +22,20 @@ function fetchWeatherForCity(city) {
         })
         .catch(error => {
             console.error("Erreur lors de la récupération des données:", error);
-            cityNameElement.textContent = "Ville non trouvée";
+            cityNameElement.textContent = "City not found";
         });
 }
 
 
 // Cette fonction met à jour le DOM avec les données météorologiques récupérées, y compris le nom de la ville et l'icône météo.
 function updateWeatherDisplay(data) {
-    cityNameElement.textContent = data.location.name;
+    cityNameElement.textContent = ` ${data.location.name}, ${data.location.country}`;
     weatherIconElement.src = `https:${data.current.condition.icon}`;
     weatherIconElement.alt = data.current.condition.text;
+    weatherConditionElement.textContent = data.current.condition.text;
+    weatherFeels.textContent = `feels like ${data.current.feelslike_c}°C`;
+    weatherMin.textContent = `/${data.forecast.forecastday[0].day.mintemp_c}°C`;
+    weatherMax.textContent = `${data.forecast.forecastday[0].day.maxtemp_c}°C`;
     updateDateTime();
 }
 
@@ -37,8 +45,7 @@ function updateDateTime() {
     const day = now.getDate().toString().padStart(2, '0');
     const month = (now.getMonth() + 1).toString().padStart(2, '0');
     const year = now.getFullYear().toString().slice(-2);
-    const hours = now.getHours().toString().padStart(2, '0');
-    dateTimeElement.textContent = `${day}/${month}/${year} - ${hours}:00`;
+    dateTimeElement.textContent = `${day}/${month}/${year}`;
 }
 
 // Cette fonction tente d'obtenir la localisation de l'utilisateur et de récupérer les données météorologiques pour celle-ci. Si la géolocalisation échoue ou n'est pas prise en charge, elle affiche par défaut la météo pour Manchester.
@@ -77,3 +84,14 @@ searchForm.addEventListener('submit', function(e) {
 document.addEventListener('DOMContentLoaded', () => {
     getLocationAndDisplayWeather();
 });
+
+//récupérer le jour actuel et l'afficher 
+let jourElement = document.getElementById('jourDeLaSemaine');
+const jours = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+// Obtenir la date actuelle
+let aujourdHui = new Date();
+// Récupérer le jour de la semaine (0 pour dimanche, 1 pour lundi, etc.)
+let jourIndex = aujourdHui.getDay();
+// Afficher le jour correspondant dans l'élément HTML
+jourElement.textContent = jours[jourIndex];
+
