@@ -593,8 +593,17 @@ video {
   margin-bottom: 1.5rem;
 }
 
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
 .mb-8 {
   margin-bottom: 2rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
 }
 
 .flex {
@@ -634,6 +643,43 @@ video {
   width: 8rem;
 }
 
+.min-w-max {
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+
+.min-w-8 {
+  min-width: 2rem;
+}
+
+.min-w-40 {
+  min-width: 10rem;
+}
+
+.min-w-36 {
+  min-width: 9rem;
+}
+
+.min-w-32 {
+  min-width: 8rem;
+}
+
+.min-w-28 {
+  min-width: 7rem;
+}
+
+.min-w-24 {
+  min-width: 6rem;
+}
+
+.min-w-20 {
+  min-width: 5rem;
+}
+
+.min-w-16 {
+  min-width: 4rem;
+}
+
 .max-w-sm {
   max-width: 24rem;
 }
@@ -662,6 +708,20 @@ video {
   justify-content: space-between;
 }
 
+.gap-4 {
+  gap: 1rem;
+}
+
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -672,6 +732,10 @@ video {
 
 .rounded-xl {
   border-radius: 0.75rem;
+}
+
+.rounded {
+  border-radius: 0.25rem;
 }
 
 .bg-black {
@@ -729,6 +793,18 @@ video {
   padding-left: 2rem;
 }
 
+.pb-4 {
+  padding-bottom: 1rem;
+}
+
+.pb-6 {
+  padding-bottom: 1.5rem;
+}
+
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -765,6 +841,11 @@ video {
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.text-8xl {
+  font-size: 6rem;
+  line-height: 1;
 }
 
 .font-bold {

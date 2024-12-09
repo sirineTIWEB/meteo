@@ -13,7 +13,7 @@ const searchInput = document.getElementById('search-input');
 
 // Cette fonction utilise l'API Fetch pour demander des données météorologiques pour une ville spécifique. Elle gère la réponse et met à jour l'affichage ou affiche un message d'erreur.
 function fetchWeatherForCity(city) {
-    fetch(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}`)
+    fetch(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=14`)
         .then(response => response.json())
         .then(data => {
             if (data.location && data.current) {
@@ -36,6 +36,7 @@ function updateWeatherDisplay(data) {
     weatherFeels.textContent = `feels like ${data.current.feelslike_c}°C`;
     weatherMin.textContent = `/${data.forecast.forecastday[0].day.mintemp_c}°C`;
     weatherMax.textContent = `${data.forecast.forecastday[0].day.maxtemp_c}°C`;
+    displayForecast(data);
     updateDateTime();
 }
 
@@ -95,3 +96,24 @@ let jourIndex = aujourdHui.getDay();
 // Afficher le jour correspondant dans l'élément HTML
 jourElement.textContent = jours[jourIndex];
 
+// pour 14 jours de prévisions
+function displayForecast(data) {
+    const forecastContainer = document.getElementById('forecast-container');
+    forecastContainer.innerHTML = ''; // Effacer le contenu précédent
+
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    data.forecast.forecastday.forEach(day => {
+        const date = new Date(day.date);
+        const dayIndex = date.getDay();
+
+        const dayElement = document.createElement('div');
+        dayElement.classList.add('forecast-day', 'bg-slate-700', 'p-2', 'rounded-xl', 'text-center', 'min-w-16', 'text-white');
+        dayElement.innerHTML = `
+            <p>${days[dayIndex]}</p>
+            <img src="${day.day.condition.icon}" alt="${day.day.condition.text}">
+            <p>${day.day.avgtemp_c}°C</p>
+        `;
+        forecastContainer.appendChild(dayElement);
+    });
+}
