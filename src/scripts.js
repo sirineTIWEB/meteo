@@ -8,6 +8,10 @@ const weatherIconElement = document.getElementById('weather-icon-img');
 const weatherFeels = document.getElementById('weather-feels');
 const weatherMin = document.getElementById('weather-min');
 const weatherMax = document.getElementById('weather-max');
+const weatherWind = document.getElementById('weather-wind');
+const weatherUV = document.getElementById('weather-uv');
+const weatherVisibility = document.getElementById('weather-visibility');
+const weatherHumidity = document.getElementById('weather-humidity');
 const searchForm = document.querySelector('form');
 const searchInput = document.getElementById('search-input');
 
@@ -18,6 +22,7 @@ function fetchWeatherForCity(city) {
         .then(data => {
             if (data.location && data.current) {
                 updateWeatherDisplay(data);
+                fetchSunriseSunset(city); // Récupérer les heures de lever et coucher du soleil
             }
         })
         .catch(error => {
@@ -26,18 +31,20 @@ function fetchWeatherForCity(city) {
         });
 }
 
-
 // Cette fonction met à jour le DOM avec les données météorologiques récupérées, y compris le nom de la ville et l'icône météo.
 function updateWeatherDisplay(data) {
-    cityNameElement.textContent = ` ${data.location.name}, ${data.location.country}`;
+    cityNameElement.textContent = `${data.location.name}, ${data.location.country}`;
     weatherIconElement.src = `https:${data.current.condition.icon}`;
     weatherIconElement.alt = data.current.condition.text;
     weatherConditionElement.textContent = data.current.condition.text;
-    weatherFeels.textContent = `feels like ${data.current.feelslike_c}°C`;
+    weatherFeels.textContent = `Feels like ${data.current.feelslike_c}°C`;
     weatherMin.textContent = `/${data.forecast.forecastday[0].day.mintemp_c}°C`;
     weatherMax.textContent = `${data.forecast.forecastday[0].day.maxtemp_c}°C`;
+    weatherWind.textContent = `${data.current.wind_kph}`;
+    weatherUV.textContent = `${data.current.uv}`;
+    weatherVisibility.textContent = `${data.current.cloud} `;
+    weatherHumidity.textContent = `${data.current.humidity}`;
     displayForecast(data);
-    updateDateTime();
 }
 
 // Cette fonction met à jour l'affichage de la date et de l'heure. Vous pouvez personnaliser le format selon vos besoins.
@@ -84,19 +91,18 @@ searchForm.addEventListener('submit', function(e) {
 // Ce code garantit que les données météorologiques sont récupérées et affichées lorsque la page se charge.
 document.addEventListener('DOMContentLoaded', () => {
     getLocationAndDisplayWeather();
+    searchInput.value = '';
+    window.scrollTo(0, 0);
 });
 
-//récupérer le jour actuel et l'afficher 
+// Récupérer le jour actuel et l'afficher 
 let jourElement = document.getElementById('jourDeLaSemaine');
 const jours = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
-// Obtenir la date actuelle
 let aujourdHui = new Date();
-// Récupérer le jour de la semaine (0 pour dimanche, 1 pour lundi, etc.)
 let jourIndex = aujourdHui.getDay();
-// Afficher le jour correspondant dans l'élément HTML
 jourElement.textContent = jours[jourIndex];
 
-// pour 14 jours de prévisions
+// Pour 14 jours de prévisions
 function displayForecast(data) {
     const forecastContainer = document.getElementById('forecast-container');
     forecastContainer.innerHTML = ''; // Effacer le contenu précédent
@@ -110,10 +116,42 @@ function displayForecast(data) {
         const dayElement = document.createElement('div');
         dayElement.classList.add('forecast-day', 'bg-slate-700', 'p-2', 'rounded-xl', 'text-center', 'min-w-16', 'text-white');
         dayElement.innerHTML = `
-            <p>${days[dayIndex]}</p>
-            <img src="${day.day.condition.icon}" alt="${day.day.condition.text}">
+            <p class="border-b-2">${days[dayIndex]}</p>
+            <img class="py-2" src="${day.day.condition.icon}" alt="${day.day.condition.text}">
             <p>${day.day.avgtemp_c}°C</p>
         `;
         forecastContainer.appendChild(dayElement);
     });
+}
+
+// Fonction pour récupérer les heures de lever et de coucher du soleil
+function fetchSunriseSunset(city) {
+    fetch(`http://api.weatherapi.com/v1/astronomy.json?key=${API_KEY}&q=${city}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erreur lors de la récupération des données");
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.astronomy && data.astronomy.astro) {
+                const sunrise = data.astronomy.astro.sunrise;
+                const sunset = data.astronomy.astro.sunset;
+                updateSunriseSunsetDisplay(sunrise, sunset);
+            } else {
+                console.error("Données d'astronomie non trouvées");
+            }
+        })
+        .catch(error => {
+            console.error("Erreur:", error);
+        });
+}
+
+// Fonction pour mettre à jour l'affichage des heures de lever et de coucher du soleil
+function updateSunriseSunsetDisplay(sunrise, sunset) {
+    const sunriseElement = document.getElementById('sunrise');
+    const sunsetElement = document.getElementById('sunset');
+
+    sunriseElement.textContent = `${sunrise}`;
+    sunsetElement.textContent = `${sunset}`;
 }
