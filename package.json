@@ -1,5 +1,9 @@
 {
   "devDependencies": {
     "tailwindcss": "^3.4.15"
+  },
+
+  "scripts": {
+    "tw": "npx tailwindcss -i ./src/input.css -o ./dist/style.css --watch"
   }
 }

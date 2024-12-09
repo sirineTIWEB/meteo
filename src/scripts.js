@@ -1,10 +1,13 @@
+// Cette ligne définit la clé API pour accéder au service WeatherAPI. Vous devrez remplacer cette clé par votre propre clé lorsque vous utiliserez WeatherAPI dans vos projets.
 const API_KEY = '8338cecf4255464fb72101804242711';
+
 const cityNameElement = document.getElementById('city-name');
 const dateTimeElement = document.getElementById('date-time');
 const weatherIconElement = document.getElementById('weather-icon-img');
 const searchForm = document.querySelector('form');
 const searchInput = document.getElementById('search-input');
 
+// Cette fonction utilise l'API Fetch pour demander des données météorologiques pour une ville spécifique. Elle gère la réponse et met à jour l'affichage ou affiche un message d'erreur.
 function fetchWeatherForCity(city) {
     fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`)
         .then(response => response.json())
@@ -19,6 +22,8 @@ function fetchWeatherForCity(city) {
         });
 }
 
+
+// Cette fonction met à jour le DOM avec les données météorologiques récupérées, y compris le nom de la ville et l'icône météo.
 function updateWeatherDisplay(data) {
     cityNameElement.textContent = data.location.name;
     weatherIconElement.src = `https:${data.current.condition.icon}`;
@@ -26,6 +31,7 @@ function updateWeatherDisplay(data) {
     updateDateTime();
 }
 
+// Cette fonction met à jour l'affichage de la date et de l'heure. Vous pouvez personnaliser le format selon vos besoins.
 function updateDateTime() {
     const now = new Date();
     const day = now.getDate().toString().padStart(2, '0');
@@ -35,6 +41,7 @@ function updateDateTime() {
     dateTimeElement.textContent = `${day}/${month}/${year} - ${hours}:00`;
 }
 
+// Cette fonction tente d'obtenir la localisation de l'utilisateur et de récupérer les données météorologiques pour celle-ci. Si la géolocalisation échoue ou n'est pas prise en charge, elle affiche par défaut la météo pour Manchester.
 function getLocationAndDisplayWeather() {
     // Afficher Manchester par défaut immédiatement
     fetchWeatherForCity('Manchester');
@@ -57,6 +64,7 @@ function getLocationAndDisplayWeather() {
     }
 }
 
+// Ce code ajoute un écouteur d'événements de soumission au formulaire de recherche, permettant aux utilisateurs de rechercher la météo dans différentes villes.
 searchForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const city = searchInput.value.trim();
@@ -65,6 +73,7 @@ searchForm.addEventListener('submit', function(e) {
     }
 });
 
+// Ce code garantit que les données météorologiques sont récupérées et affichées lorsque la page se charge.
 document.addEventListener('DOMContentLoaded', () => {
     getLocationAndDisplayWeather();
 });
