@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="MonPWA">
+    <link rel="apple-touch-icon" href="/icones/icon-192x192.png">
     <title>app meteo</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -110,13 +116,28 @@
           </div>
         </div>
       </div>
-      
-      
-      
-      
-      
-      
     </section>
+
+    <section class="bg-slate-800 rounded-lg flex flex-col items-center justify-center aspect-square">
+      <img class="w-1/4 rounded-3xl" src="icons/iconeweatherapp192.png" alt="app icon">
+      <h2 class="text-white">rine weather app</h2>
+      <h1 id="downloadbutton" class="text-white text-xl mt-4 cursor-pointer">Download here</h1>
+    </section>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/js/sw.js')
+            .then(registration => {
+              console.log('ServiceWorker enregistré avec succès:', registration.scope);
+            })
+            .catch(error => {
+              console.log('Échec de l\'enregistrement du ServiceWorker:', error);
+            });
+        });
+      }
+    </script>
+    
     <script src="js/scripts.js"></script>
 </body>
 </html>

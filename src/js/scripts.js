@@ -155,3 +155,42 @@ function updateSunriseSunsetDisplay(sunrise, sunset) {
     sunriseElement.textContent = `${sunrise}`;
     sunsetElement.textContent = `${sunset}`;
 }
+
+
+// fonction PWA 
+
+let deferredPrompt;
+const installButton = document.getElementById('downloadbutton');
+
+// Détection si l'installation est possible
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    // Vérification de la plateforme
+    if (/iPhone|iPad|iPod/.test(navigator.platform)) {
+        installButton.textContent = 'Installation non disponible sur iOS';
+        installButton.disabled = true;
+    } else {
+        installButton.style.display = 'block';
+    }
+    
+    document.body.appendChild(installButton);
+});
+
+// Gestion du clic sur le bouton d'installation
+installButton.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    
+    const result = await deferredPrompt.prompt();
+    console.log(`Installation ${result.outcome}`);
+    deferredPrompt = null;
+    installButton.style.display = 'none';
+});
+
+// Détection si l'app est déjà installée
+window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    installButton.style.display = 'none';
+});
+

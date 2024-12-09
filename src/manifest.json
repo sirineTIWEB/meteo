@@ -1,0 +1,22 @@
+{
+    "name": "app météo rine PWA",
+    "short_name": "météon rine",
+    "description": "Application météo faite par Sirine El Alami",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "black",
+    "theme_color": "black",
+    "icons": [
+      {
+        "src": "icons/iconweatherapp192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "icons/iconweatherapp512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
