@@ -92,7 +92,6 @@ searchForm.addEventListener('submit', function(e) {
 document.addEventListener('DOMContentLoaded', () => {
     getLocationAndDisplayWeather();
     searchInput.value = '';
-    window.scrollTo(0, 0);
 });
 
 // Récupérer le jour actuel et l'afficher 
