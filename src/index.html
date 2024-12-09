@@ -50,14 +50,73 @@
     </section>
     <section class="bg-slate-800 rounded-lg my-6 p-4 flex flex-col">
       <h1 class="text-white text-2xl">14 day forecast</h1>
-      <div id="forecast-container" class="flex flex-row overflow-x-auto space-x-4 pb-6 mt-2"></div>
+      <div id="forecast-container" class="flex flex-row overflow-x-auto space-x-4 pb-6 mt-6"></div>
     </section>
-
-
-
-
-
-
+    <section class="bg-slate-800 rounded-lg my-6 p-4 flex flex-col">
+      <h1 class="text-white text-2xl mb-6">Today's highlight</h1>
+      <div class="flex flex-wrap justify-between mx-4">
+        <div class="flex flex-col items-end bg-slate-700 rounded-xl p-6 mb-4 w-40">
+          <div class="flex flex-row-reverse">
+            <h1 class="text-white">Wind status</h1>
+            <img src="icons/wind.svg" alt="wind icon" class="mt-1 mr-1">
+          </div>
+          <p class="text-white"> 
+            <span id="weather-wind" class="text-2xl mr-1"></span>km/h
+          </p>
+        </div>
+        <div class="flex flex-col items-end bg-slate-700 rounded-xl p-6 mb-4 w-40">
+          <div class="flex flex-row-reverse">
+            <h1 class="text-white">Humidity</h1>
+            <img src="icons/humidity.svg" alt="humidity icon" class="mt-1 mr-1">
+          </div>
+          <p class="text-white"> 
+            <span id="weather-humidity" class="text-2xl mr-1"></span>%
+          </p>
+        </div>
+        <div class="flex flex-col items-end bg-slate-700 rounded-xl p-6 mb-4 w-40">
+          <div class="flex flex-row-reverse">
+            <h1 class="text-white">UV index</h1>
+            <img src="icons/uv.svg" alt="uv icon" class="mt-1 mr-1">
+          </div>
+          <p class="text-white"> 
+            <span id="weather-uv" class="text-2xl mr-1"></span>uv
+          </p>
+        </div>
+        <div class="flex flex-col items-end bg-slate-700 rounded-xl p-6 mb-4 w-40">
+          <div class="flex flex-row-reverse">
+            <h1 class="text-white">Visibility</h1>
+            <img src="icons/visibility.svg" alt="visibility icon" class="mt-1 mr-1">
+          </div>
+          <p class="text-white"> 
+            <span id="weather-visibility" class="text-2xl mr-1"></span>km
+          </p>
+        </div>
+        <div class="flex flex-row bg-slate-700 rounded-xl mb-4 p-6 w-full justify-between">
+          <div class="">
+            <img src="icons/sunrise.png" alt="sunrise icon">
+          </div>
+          <div class=""> 
+            <p class="text-white">Sunrise</p>
+            <h1 id="sunrise" class="text-2xl text-white"></h1>
+          </div>
+        </div>
+        <div class="flex flex-row bg-slate-700 rounded-xl p-6 w-full justify-between">
+          <div class="">
+            <img src="icons/sundown.png" alt="sunset icon">
+          </div>
+          <div class=""> 
+            <p class="text-white">Sundown</p>
+            <h1 id="sunset" class="text-2xl text-white"></h1>
+          </div>
+        </div>
+      </div>
+      
+      
+      
+      
+      
+      
+    </section>
     <script src="scripts.js"></script>
 </body>
 </html>
