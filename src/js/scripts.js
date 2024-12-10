@@ -157,33 +157,32 @@ function updateSunriseSunsetDisplay(sunrise, sunset) {
 
 
 // fonction PWA
+
 let deferredPrompt;
-const installButton = document.getElementById('install-button');
+const installButton = document.createElement('button');
+installButton.style.display = 'none';
+installButton.textContent = 'Installer l\'application';
 
 // Détection si l'installation est possible
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-
-    console.log('beforeinstallprompt fired');
     
     // Vérification de la plateforme
     if (/iPhone|iPad|iPod/.test(navigator.platform)) {
-        console.log('Installation non disponible sur iOS');
         installButton.textContent = 'Installation non disponible sur iOS';
         installButton.disabled = true;
     } else {
-        console.log('Installation disponible, affichage du bouton');
         installButton.style.display = 'block';
     }
-
+    
     document.body.appendChild(installButton);
 });
 
 // Gestion du clic sur le bouton d'installation
 installButton.addEventListener('click', async () => {
     if (!deferredPrompt) return;
-
+    
     const result = await deferredPrompt.prompt();
     console.log(`Installation ${result.outcome}`);
     deferredPrompt = null;
@@ -192,7 +191,6 @@ installButton.addEventListener('click', async () => {
 
 // Détection si l'app est déjà installée
 window.addEventListener('appinstalled', () => {
-    console.log('App installed');
     deferredPrompt = null;
-    installButton.textContent = 'already donwload';
+    installButton.style.display = 'none';
 });
