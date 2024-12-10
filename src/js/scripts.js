@@ -1,3 +1,60 @@
+function detectMobileDevice() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    const htmlcontain = document.getElementById('device');
+    
+    if (/iPad|iPhone|iPod/.test(userAgent)) {
+        htmlcontain.textContent = 'iOS';
+    } else {
+        htmlcontain.textContent = 'unknown';
+    } 
+}
+  
+// Exemple d'utilisation
+const deviceType = detectMobileDevice();
+console.log(`Type d'appareil détecté : ${deviceType}`);
+  
+
+// fonction PWA
+
+let deferredPrompt;
+const installButton = document.createElement('button');
+installButton.style.display = 'none';
+installButton.textContent = 'Installer l\'application';
+
+// Détection si l'installation est possible
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    // Vérification de la plateforme
+    if (/iPhone|iPad|iPod/.test(navigator.platform)) {
+        installButton.textContent = 'Installation non disponible sur iOS';
+        installButton.disabled = true;
+    } else {
+        installButton.style.display = 'block';
+    }
+
+    document.body.appendChild(installButton);
+});
+
+
+// Gestion du clic sur le bouton d'installation
+installButton.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+
+    const result = await deferredPrompt.prompt();
+    console.log(`Installation ${result.outcome}`);
+    deferredPrompt = null;
+    installButton.style.display = 'none';
+});
+
+// Détection si l'app est déjà installée
+window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    installButton.style.display = 'none';
+});
+
+// document.addEventListener("DOMContentLoaded", function() {
 // Cette ligne définit la clé API pour accéder au service WeatherAPI. Vous devrez remplacer cette clé par votre propre clé lorsque vous utiliserez WeatherAPI dans vos projets.
 const API_KEY = '8338cecf4255464fb72101804242711';
 
@@ -156,41 +213,4 @@ function updateSunriseSunsetDisplay(sunrise, sunset) {
 }
 
 
-// fonction PWA
-
-let deferredPrompt;
-const installButton = document.createElement('button');
-installButton.style.display = 'none';
-installButton.textContent = 'Installer l\'application';
-
-// Détection si l'installation est possible
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    
-    // Vérification de la plateforme
-    if (/iPhone|iPad|iPod/.test(navigator.platform)) {
-        installButton.textContent = 'Installation non disponible sur iOS';
-        installButton.disabled = true;
-    } else {
-        installButton.style.display = 'block';
-    }
-    
-    document.body.appendChild(installButton);
-});
-
-// Gestion du clic sur le bouton d'installation
-installButton.addEventListener('click', async () => {
-    if (!deferredPrompt) return;
-    
-    const result = await deferredPrompt.prompt();
-    console.log(`Installation ${result.outcome}`);
-    deferredPrompt = null;
-    installButton.style.display = 'none';
-});
-
-// Détection si l'app est déjà installée
-window.addEventListener('appinstalled', () => {
-    deferredPrompt = null;
-    installButton.style.display = 'none';
-});
+// });
