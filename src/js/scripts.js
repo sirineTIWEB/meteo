@@ -46,6 +46,23 @@ function detectMobileDeviceAndShowInstallButton() {
 // Appel de la fonction
 detectMobileDeviceAndShowInstallButton();
 
+document.getElementById('get-location').addEventListener('click', function() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          fetchWeatherForCity(`${latitude},${longitude}`);
+        },
+        error => {
+          console.error("Erreur de géolocalisation:", error);
+        }
+      );
+    } else {
+      console.log("Géolocalisation non supportée");
+    }
+  });
+  
 
 // document.addEventListener("DOMContentLoaded", function() {
 // Cette ligne définit la clé API pour accéder au service WeatherAPI. Vous devrez remplacer cette clé par votre propre clé lorsque vous utiliserez WeatherAPI dans vos projets.
