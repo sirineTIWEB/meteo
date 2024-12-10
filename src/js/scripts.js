@@ -1,18 +1,23 @@
 function detectMobileDeviceAndShowInstallButton() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    const htmlcontain = document.getElementById('device');
+    // const htmlcontain = document.getElementById('device');
     const installButton = document.getElementById('install-button');
 
     if (/iPad|iPhone|iPod/.test(userAgent)) {
-        htmlcontain.textContent = 'iOS';
-        installButton.style.display = 'block';
-        installButton.textContent = 'non installable';
+        // htmlcontain.textContent = 'iOS';
+        installButton.style.display = 'hidden';
+        DownloadfromApple();
     } else if (/android/i.test(userAgent)) {
-        htmlcontain.textContent = 'Android';
+        // htmlcontain.textContent = 'Android';
         installButton.style.display = 'block';
     } else {
-        htmlcontain.textContent = 'Desktop';
-        installButton.style.display = 'block';
+        // htmlcontain.textContent = 'Desktop'; 
+        // installButton.style.display = 'block';
+    }
+
+    function DownloadfromApple(){
+        const sectionapple = document.getElementById('apple');
+        sectionapple.style.display = 'block';
     }
 
     // Gestion de l'installation PWA
@@ -33,7 +38,7 @@ function detectMobileDeviceAndShowInstallButton() {
 
     window.addEventListener('appinstalled', () => {
         console.log('App installed');
-        installButton.textContent = 'Application installée';
+        installButton.textContent = 'Check your homescreen <br> it should be here ;)';
         installButton.disabled = true;
     });
 }
