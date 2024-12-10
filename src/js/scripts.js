@@ -4,8 +4,9 @@ function detectMobileDeviceAndShowInstallButton() {
     const installButton = document.getElementById('install-button');
 
     if (/iPad|iPhone|iPod/.test(userAgent)) {
-        htmlcontain.textContent = 'iOS nn installable';
+        htmlcontain.textContent = 'iOS';
         installButton.style.display = 'block';
+        installButton.textContent = 'non installable';
     } else if (/android/i.test(userAgent)) {
         htmlcontain.textContent = 'Android';
         installButton.style.display = 'block';
