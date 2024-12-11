@@ -1,7 +1,9 @@
 const md = new MobileDetect(window.navigator.userAgent);
 const installBtn = document.getElementById('install-button');
 const stepsIOS = document.getElementById('apple');
+const sectionIOS = document.getElementById('allsectionApp');
 stepsIOS.style.display = 'none';
+sectionIOS.style.display = 'none';
 let deferredPrompt;
 
 // Fonction pour gérer les appareils mobiles
@@ -12,6 +14,7 @@ function handleMobileDevice() {
                 console.log('Mode autonome détecté sur iOS');
                 if (stepsIOS) {
                     stepsIOS.style.display = 'none'; // Cache la div
+                    sectionIOS.style.display = 'none'; // Cache la div
                 }
             } else {
                 console.log('Mode standard Safari sur iOS');
@@ -20,7 +23,7 @@ function handleMobileDevice() {
                     installBtn.style.display = 'none';
                     installBtn.textContent = 'Installation non disponible sur iOS';
                     installBtn.disabled = true;
-                    stepsIOS.style.display = 'block';
+                    sectionIOS.style.display = 'block';
                 }
             }
             
