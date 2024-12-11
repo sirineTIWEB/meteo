@@ -1,6 +1,6 @@
 {
     "name": "app météo rine PWA",
-    "short_name": "météon rine",
+    "short_name": "météo rine",
     "description": "Application météo faite par Sirine El Alami",
     "start_url": "/",
     "display": "standalone",
