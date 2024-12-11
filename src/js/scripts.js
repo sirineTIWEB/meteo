@@ -1,68 +1,74 @@
-function detectMobileDeviceAndShowInstallButton() {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    // const htmlcontain = document.getElementById('device');
-    const installButton = document.getElementById('install-button');
+const md = new MobileDetect(window.navigator.userAgent);
+const installBtn = document.getElementById('install-button');
+const stepsIOS = document.getElementById('apple');
+stepsIOS.style.display = 'none';
 
-    if (/iPad|iPhone|iPod/.test(userAgent)) {
-        // htmlcontain.textContent = 'iOS';
-        installButton.style.display = 'hidden';
-        DownloadfromApple();
-    } else if (/android/i.test(userAgent)) {
-        // htmlcontain.textContent = 'Android';
-        installButton.style.display = 'block';
+// Fonction pour gérer les appareils mobiles
+function handleMobileDevice() {
+    if (md.mobile()) {
+        if (md.is('iOS')) {
+            if (window.navigator.standalone) {
+                console.log('Mode autonome détecté sur iOS');
+                if (stepsIOS) {
+                    stepsIOS.style.display = 'none'; // Cache la div
+                }
+            } else {
+                console.log('Mode standard Safari sur iOS');
+                if (stepsIOS) {
+                    stepsIOS.style.display = 'block'; // Affiche la div si nécessaire
+                    installBtn.style.display = 'none';
+                    installBtn.textContent = 'Installation non disponible sur iOS';
+                    installBtn.disabled = true;
+                    stepsIOS.style.display = 'block';
+                }
+            }
+            
+        } else if (md.is('AndroidOS')) {
+            console.log('Android device detected');
+            installBtn.style.display = 'none';
+            installBtn.disabled = false;
+        }
+
+        if (md.tablet()) {
+            console.log('Tablet device detected');
+        } else if (md.phone()) {
+            console.log('Phone device detected');
+        }
     } else {
-        // htmlcontain.textContent = 'Desktop'; 
-        // installButton.style.display = 'block';
+        console.log('Deja installée sur desktop');
+        installBtn.style.display = 'none';
+        installBtn.disabled = true;
     }
-
-    function DownloadfromApple(){
-        const sectionapple = document.getElementById('apple');
-        sectionapple.style.display = 'block';
-    }
-
-    // Gestion de l'installation PWA
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        installButton.style.display = 'block';
-    });
-
-    installButton.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        const result = await deferredPrompt.prompt();
-        console.log(`Installation ${result.outcome}`);
-        deferredPrompt = null;
-        installButton.style.display = 'none';
-    });
-
-    window.addEventListener('appinstalled', () => {
-        console.log('App installed');
-        installButton.textContent = 'Check your homescreen <br> it should be here ;)';
-        installButton.disabled = true;
-    });
 }
+
+handleMobileDevice();
+
+// Gestion de l'installation PWA
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installButton.style.display = 'block';
+});
+
+installButton.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    const result = await deferredPrompt.prompt();
+    console.log(`Installation ${result.outcome}`);
+    deferredPrompt = null;
+    installButton.style.display = 'none';
+});
+
+window.addEventListener('appinstalled', () => {
+    console.log('App installed');
+    installButton.textContent = 'Check your homescreen <br> it should be here ;)';
+    installButton.disabled = true;
+});
+
 
 // Appel de la fonction
 detectMobileDeviceAndShowInstallButton();
 
-document.getElementById('get-location').addEventListener('click', function() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          fetchWeatherForCity(`${latitude},${longitude}`);
-        },
-        error => {
-          console.error("Erreur de géolocalisation:", error);
-        }
-      );
-    } else {
-      console.log("Géolocalisation non supportée");
-    }
-  });
-  
 
 // document.addEventListener("DOMContentLoaded", function() {
 // Cette ligne définit la clé API pour accéder au service WeatherAPI. Vous devrez remplacer cette clé par votre propre clé lorsque vous utiliserez WeatherAPI dans vos projets.
