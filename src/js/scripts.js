@@ -2,6 +2,7 @@ const md = new MobileDetect(window.navigator.userAgent);
 const installBtn = document.getElementById('install-button');
 const stepsIOS = document.getElementById('apple');
 stepsIOS.style.display = 'none';
+let deferredPrompt;
 
 // Fonction pour gérer les appareils mobiles
 function handleMobileDevice() {
@@ -41,33 +42,32 @@ function handleMobileDevice() {
     }
 }
 
-handleMobileDevice();
 
 // Gestion de l'installation PWA
-let deferredPrompt;
+
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    installButton.style.display = 'block';
+    installBtn.style.display = 'block';
 });
 
-installButton.addEventListener('click', async () => {
+installBtn.addEventListener('click', async () => {
     if (!deferredPrompt) return;
     const result = await deferredPrompt.prompt();
     console.log(`Installation ${result.outcome}`);
     deferredPrompt = null;
-    installButton.style.display = 'none';
+    installBtn.style.display = 'none';
 });
 
 window.addEventListener('appinstalled', () => {
     console.log('App installed');
-    installButton.textContent = 'Check your homescreen <br> it should be here ;)';
-    installButton.disabled = true;
+    installBtn.textContent = 'Check your homescreen <br> it should be here ;)';
+    installBtn.disabled = true;
 });
 
 
 // Appel de la fonction
-detectMobileDeviceAndShowInstallButton();
+handleMobileDevice();
 
 
 // document.addEventListener("DOMContentLoaded", function() {
