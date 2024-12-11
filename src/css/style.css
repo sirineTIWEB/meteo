@@ -627,6 +627,10 @@ video {
   margin-right: 0.25rem;
 }
 
+.mr-4 {
+  margin-right: 1rem;
+}
+
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -637,10 +641,6 @@ video {
 
 .mt-6 {
   margin-top: 1.5rem;
-}
-
-.mr-4 {
-  margin-right: 1rem;
 }
 
 .block {
@@ -679,10 +679,6 @@ video {
   width: 1rem;
 }
 
-.w-40 {
-  width: 10rem;
-}
-
 .w-fit {
   width: -moz-fit-content;
   width: fit-content;
@@ -692,24 +688,8 @@ video {
   width: 100%;
 }
 
-.w-36 {
-  width: 9rem;
-}
-
-.w-auto {
-  width: auto;
-}
-
 .min-w-16 {
   min-width: 4rem;
-}
-
-.min-w-36 {
-  min-width: 9rem;
-}
-
-.min-w-full {
-  min-width: 100%;
 }
 
 .max-w-sm {
@@ -754,10 +734,6 @@ video {
 
 .justify-between {
   justify-content: space-between;
-}
-
-.justify-evenly {
-  justify-content: space-evenly;
 }
 
 .space-x-4 > :not([hidden]) ~ :not([hidden]) {
