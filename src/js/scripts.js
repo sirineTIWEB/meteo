@@ -72,7 +72,7 @@ handleMobileDevice();
 
 // document.addEventListener("DOMContentLoaded", function() {
 // Cette ligne définit la clé API pour accéder au service WeatherAPI. Vous devrez remplacer cette clé par votre propre clé lorsque vous utiliserez WeatherAPI dans vos projets.
-const API_KEY = '8338cecf4255464fb72101804242711';
+const API_KEY = '2687ba4656ac49589fc85100241112';
 
 const cityNameElement = document.getElementById('city-name');
 const dateTimeElement = document.getElementById('date-time');
