@@ -167,6 +167,10 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.value = '';
 });
 
+searchInput.addEventListener('focus', function() {
+    this.value = '';
+});
+
 // Récupérer le jour actuel et l'afficher 
 let jourElement = document.getElementById('jourDeLaSemaine');
 const jours = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
