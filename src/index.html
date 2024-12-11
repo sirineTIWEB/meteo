@@ -16,7 +16,7 @@
 <body class="bg-black p-4">
   <section class="w-full max-w-sm mx-auto flex items-center">
     <form>
-      <div class="relative rounded-lg">
+      <div class="relative rounded-lg bg-slate-800">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="w-4 h-4 text-gray-500">
@@ -70,8 +70,8 @@
   </section>
   <section class="bg-slate-800 rounded-lg my-6 p-4 flex flex-col">
     <h1 class="text-white text-2xl mb-6">Today's highlight</h1>
-    <div class="flex flex-wrap justify-between mx-4">
-      <div class="flex flex-col items-end bg-slate-700 rounded-xl p-6 mb-4 w-40">
+    <div class="flex flex-wrap justify-between">
+      <div class="flex flex-col items-end bg-slate-700 rounded-xl p-6 mb-4 flex-1 mr-4">
         <div class="flex flex-row-reverse">
           <h1 class="text-white">Wind status</h1>
           <img src="icons/wind.svg" alt="wind icon" class="mt-1 mr-1">
@@ -80,7 +80,7 @@
           <span id="weather-wind" class="text-2xl mr-1"></span>km/h
         </p>
       </div>
-      <div class="flex flex-col items-end bg-slate-700 rounded-xl p-6 mb-4 w-40">
+      <div class="flex flex-col items-end bg-slate-700 rounded-xl p-6 mb-4 flex-1">
         <div class="flex flex-row-reverse">
           <h1 class="text-white">Humidity</h1>
           <img src="icons/humidity.svg" alt="humidity icon" class="mt-1 mr-1">
@@ -89,7 +89,7 @@
           <span id="weather-humidity" class="text-2xl mr-1"></span>%
         </p>
       </div>
-      <div class="flex flex-col items-end bg-slate-700 rounded-xl p-6 mb-4 w-40">
+      <div class="flex flex-col items-end bg-slate-700 rounded-xl p-6 mb-4 flex-1 mr-4">
         <div class="flex flex-row-reverse">
           <h1 class="text-white">UV index</h1>
           <img src="icons/uv.svg" alt="uv icon" class="mt-1 mr-1">
@@ -98,7 +98,7 @@
           <span id="weather-uv" class="text-2xl mr-1"></span>uv
         </p>
       </div>
-      <div class="flex flex-col items-end bg-slate-700 rounded-xl p-6 mb-4 w-40">
+      <div class="flex flex-col items-end bg-slate-700 rounded-xl p-6 mb-4 flex-1">
         <div class="flex flex-row-reverse">
           <h1 class="text-white">Visibility</h1>
           <img src="icons/visibility.svg" alt="visibility icon" class="mt-1 mr-1">
